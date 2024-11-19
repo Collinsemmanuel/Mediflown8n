@@ -1,0 +1,33 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM fhir.export_training_data(ARRAY['Patient']::fhir.resource_type[]);",
+        "additionalFields": {}
+      },
+      "name": "PostgreSQL",
+      "type": "n8n-nodes-base.postgres",
+      "position": [300, 300],
+      "credentials": {
+        "postgres": {
+          "name": "Local Postgres",
+          "id": "postgres-connection"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "filePath": "/data/fhir_extracts/",
+        "fileName": "=timestamp + '_patient_data.jsonl'",
+        "options": {
+          "append": true
+        }
+      },
+      "name": "Write Files",
+      "type": "n8n-nodes-base.writeFiles",
+      "position": [500, 300]
+    }
+  ]
+} 
